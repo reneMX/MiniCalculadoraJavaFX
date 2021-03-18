@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="417.0" prefWidth="507.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.FXMLDocumentController">
+    <children>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+      <Button layoutX="67.0" layoutY="64.0" mnemonicParsing="false" text="Resuelve" />
+      <Label layoutX="254.0" layoutY="61.0" text="Mini - Calculadora" AnchorPane.bottomAnchor="323.2" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="61.0">
+         <font>
+            <Font name="Wingdings 3" size="25.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Label>
+      <MenuBar prefHeight="29.0" prefWidth="474.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#cierraVentana" text="Cerrar Ventana" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Editar">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Reset" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ayuda">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Nombre" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="67.0" layoutY="160.0" text="Operando A" />
+      <Label layoutX="68.0" layoutY="218.0" text="Operando B" />
+      <TextField layoutX="161.0" layoutY="155.0" onKeyTyped="#SoloNumerosEnteros" prefHeight="27.0" prefWidth="135.0" promptText="ingresa un numero" />
+      <TextField fx:id="txtOperandoB" layoutX="161.0" layoutY="213.0" onAction="#RBSeleccionado" onKeyTyped="#SoloNumerosEnteros" prefHeight="27.0" prefWidth="135.0" promptText="ingresa un numero" />
+      <RadioButton layoutX="348.0" layoutY="142.0" mnemonicParsing="false" onAction="#RBSeleccionado" text="Suma" visible="false" AnchorPane.bottomAnchor="250.0" AnchorPane.topAnchor="149.0">
+         <toggleGroup>
+            <ToggleGroup fx:id="operacion" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="txtResta" layoutX="348.0" layoutY="174.0" mnemonicParsing="false" onAction="#RBSeleccionado" text="Resta" toggleGroup="$operacion" AnchorPane.bottomAnchor="220.0" AnchorPane.topAnchor="180.0" />
+      <RadioButton layoutX="348.0" layoutY="200.0" mnemonicParsing="false" onAction="#RBSeleccionado" text="Multiplicacion" toggleGroup="$operacion" AnchorPane.bottomAnchor="190.0" AnchorPane.topAnchor="210.0" />
+      <RadioButton layoutX="348.0" layoutY="231.0" mnemonicParsing="false" onAction="#RBSeleccionado" text="Division" toggleGroup="$operacion" AnchorPane.bottomAnchor="160.0" AnchorPane.topAnchor="240.0" />
+      <TextField layoutX="66.0" layoutY="344.0" prefHeight="27.0" prefWidth="235.0" />
+      <Label layoutX="354.0" layoutY="349.0" text="Resultado" />
+    </children>
+</AnchorPane>
