@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.net.URL;
@@ -19,7 +14,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
-import javax.swing.JOptionPane;
+import javafx.scene.layout.VBox;
 import modelo.operacionesBasicas;
 
 /**
@@ -49,6 +44,9 @@ public class FXMLController implements Initializable {
     private MenuBar mNBarCalcu;
     @FXML
     private ToggleGroup operaciones;
+    
+    @FXML
+    private VBox vBoxLeft;
 
     /**
      * Initializes the controller class.
@@ -58,38 +56,73 @@ public class FXMLController implements Initializable {
         // TODO
     }    
     
+    
+    /*
+    * Este metodo hace que se cierre la Ventana,
+    *   mediante la accion de un evento
+    */
     @FXML
     private void cerrarVentana(ActionEvent eventoCerrar){
+        /* Utilizamos el metodo exit() del objeto Plataforma de aplicaciones */
         Platform.exit();
     }
+    
+    /*
+    * Borra la informacion de los TextField
+    *   Y reinicia la eleccion de los RadioButton
+    */
      @FXML
     private void borrarInformacion(ActionEvent event) {
+        
+        /* colcoamos un string vacio para reiniciar cada TextField */
         numA.setText(" ");
         numB.setText(" ");
+        tFResult.setText(" ");
+        /* Regresamos la seleccion de cada RadioBtton a falso */
         rBtnSuma.setSelected(false);
         rBtnResta.setSelected(false);
         rBtnMultiplicacion.setSelected(false);
         rBtnDivision.setSelected(false);
-        tFResult.setText(" ");
+        
     }
 
+    
+    /*
+    * Este metodo, muestra mediante otra venta
+    *   creada desde cero, el nombre del autor.
+    */
     @FXML
     private void presentaNombre(ActionEvent event) {
-            muestraNombre();
+        /* Invocamos al metodo, que llama una ventana nueva */    
+//        muestraNombre();
+        muestraVentanaEmergente(3);
     }
     
     
+    /*
+    * Valida las casillas TextField de entrada de operandos
+    *   donde se valida la entrada de solo numeros.
+    */
     @FXML
     private void SoloNumerosEnteros(KeyEvent keyEvent) {
         try{
+            /* Obtenemos el valor de la tecla presionada
+                mediante KeyEvent
+            */
             char key = keyEvent.getCharacter().charAt(0);
-
+            /* Validamos el caracter , y cuando sea una letra consumimos al evento */
             if (!Character.isDigit(key)){
                 keyEvent.consume();
             }         
         } catch (Exception ex){ }
     }
 
+    
+    /*
+    * Ejecuta la funcionalidad de cada Operacion
+    *   mediante un evento, que reacciona cuando
+    *   se presiona el boton de resolver.
+    */
     @FXML
     private void ejecutar(ActionEvent event) {
         double result = 0;
@@ -111,11 +144,7 @@ public class FXMLController implements Initializable {
                             result= objOB.multiplar();
                         } else if (this.rBtnDivision.isSelected()) {               
                             if (numberB == 0) { // Si el denominador es 0, emitir error
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setHeaderText(null);
-                                alert.setTitle("Error");
-                                alert.setContentText("El operando 2 no puede ser 0");
-                                alert.showAndWait();
+                                muestraVentanaEmergente(0);
                             } else {
                                 result= objOB.dividir();
                             }
@@ -125,43 +154,55 @@ public class FXMLController implements Initializable {
                         this.tFResult.setText(String.valueOf(result));
 
                     }catch(NumberFormatException exeption){                        
-
-                        Alert alerta = new Alert(Alert.AlertType.ERROR); // Alerta de error            
-                        alerta.setHeaderText("Cuidado Old-Man!");//Cabecera
-                        alerta.setTitle("Error"); //Titulo
-                        alerta.setContentText("Formato incorrecto.");//Información
-                        alerta.showAndWait();/*Utilice el método showAndWait () si necesita 
-                        mantener a la ventana que se invoca hasta que la etapa modal 
-                        esté oculta (cerrada).*/
+                          muestraVentanaEmergente(1);
                     }
         }else{
-            muestraErrorButtonResolve();
-//                    Alert alerta = new Alert(Alert.AlertType.ERROR);
-//                    alerta.setHeaderText("Error de Llenado");
-//                    alerta.setTitle("Error");
-//                    alerta.setContentText("Error, Debes seleccionar almenos 1 opccion de operacion");
-//                    alerta.showAndWait();
+                      muestraVentanaEmergente(2);
         }      
     }
     
-    @FXML
-    private void muestraErrorButtonResolve(){
-        Alert rbAlerta = new Alert(Alert.AlertType.ERROR);
-        rbAlerta.setHeaderText("Error de Llenado");
-        rbAlerta.setTitle("Error");
-        rbAlerta.setContentText("Error, Debes seleccionar almenos 1 opccion de operacion");
-        rbAlerta.showAndWait();
-    }
+    
+    
     
     @FXML
-    private void muestraNombre(){
-        Alert dialogoNombre = new Alert(AlertType.INFORMATION);
-        dialogoNombre.setTitle("Acerca de..");
-        dialogoNombre.setHeaderText(null);
-        dialogoNombre.setContentText("René Martínez M.");
-        dialogoNombre.showAndWait();
+    private void muestraVentanaEmergente(int tipo){
+        Alert dialogoNombre     = new Alert(AlertType.INFORMATION); //Alerta de 
+        Alert alertaRbN         = new Alert(Alert.AlertType.ERROR);
+        Alert alertaVacio       = new Alert(Alert.AlertType.ERROR); // Alerta de error            
+        Alert alertaDenominador = new Alert(Alert.AlertType.ERROR); // Alerta de error            
+        
+        switch( tipo ){
+            case 0:
+                    alertaDenominador.setHeaderText(null);
+                    alertaDenominador.setTitle("Error");
+                    alertaDenominador.setContentText("El operando 2 no puede ser 0");
+                    alertaDenominador.showAndWait();
+            break;
+            
+            case 1:
+                    alertaVacio.setHeaderText("Cuidado Old-Man!");//Cabecera
+                    alertaVacio.setTitle("Error"); //Titulo
+                    alertaVacio.setContentText("Formato incorrecto.");//Información
+                    alertaVacio.showAndWait();/*Utilice el método showAndWait () si necesita */
+            break;
+            
+            case 2:
+                    alertaRbN.setHeaderText("Error de Llenado");
+                    alertaRbN.setTitle("Error");
+                    alertaRbN.setContentText("Error, Debes seleccionar almenos 1 opccion de operacion");
+                    alertaRbN.showAndWait();
+            break;
+            
+            case 3:
+                    dialogoNombre.setTitle("Acerca de..");
+                    dialogoNombre.setHeaderText(null);
+                    dialogoNombre.setContentText("René Martínez M.");
+                    dialogoNombre.showAndWait();
+            break;
+        }
+        
+        
     }
-    
    
     
 }

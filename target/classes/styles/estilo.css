@@ -1,0 +1,19 @@
+
+.mainFxmlClass{
+    
+}
+
+Pane{
+ -fx-background-color: #03717a;
+ -fx-opacity:0.5;
+}
+
+
+
+Button{
+    -fx-background-color: #3B5998;
+          
+}
+
+
+/*hover es un evento para cambiar cuando pasamos el teclado por encima*/

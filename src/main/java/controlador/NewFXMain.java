@@ -31,7 +31,10 @@ public class NewFXMain extends Application {
             // Cargo el scene
             Scene scene = new Scene(ventana);
             
-            // Seteo la scene y la muestro
+            // Se agrega estilo css
+            scene.getStylesheets().add("../styles/fxmllogin.css");
+            
+            // Seteo la scene y la muestro  
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
