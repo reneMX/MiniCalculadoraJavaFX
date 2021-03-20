@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -26,6 +27,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -56,15 +58,19 @@ public class FXMLLoginController implements Initializable {
     }
 
     @FXML
-    private void muestraResgistro(){
-         try {
+    private void muestraResgistro(ActionEvent event){
+            Node node       = (Node) event.getSource();
+            Stage stageP    = (Stage) node.getScene().getWindow();
+            stageP.setOpacity(0.5);//Opacamos la ventanaLogin
+        try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vista/FXMLRegistro.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.initModality(Modality.NONE);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Formulario de Resgistro");
             stage.setScene(new Scene(root1));
             stage.show();
+            
         } catch (IOException e) {
             System.out.println("Ex: " + e.getMessage());
         }
@@ -82,7 +88,6 @@ public class FXMLLoginController implements Initializable {
 
     @FXML
     private void ingresar(ActionEvent evento) {
-        Hyperlink hyperlink = new Hyperlink("Go to Facebook");
         try {
             ejecucion();
         } catch (IOException ex) {

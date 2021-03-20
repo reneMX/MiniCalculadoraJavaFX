@@ -3,6 +3,7 @@
     
 }
 
+
 .BotonFacebook{
     -fx-background-color: #3B5998;
 }
@@ -50,6 +51,7 @@
     -fx-font-weight:bold;
     -fx-cursor:hand;
 }
+
 /*
 .calculadora:active{
     -fx-align-self: flex-end;

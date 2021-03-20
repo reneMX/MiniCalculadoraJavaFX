@@ -25,7 +25,6 @@
       <TextField fx:id="txtNombre" layoutX="160.0" layoutY="61.0" promptText="ingresa un solo nombre" />
       <TextField fx:id="txtApellidos" layoutX="160.0" layoutY="105.0" promptText="ingresa tus apellidos" />
       <TextField fx:id="txtPassword" layoutX="160.0" layoutY="151.0" promptText="ingresa tu contrasena" />
-      <Button layoutX="158.0" layoutY="207.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="101.0" styleClass="boton-registro" text="Registrarte" textFill="#9c824a" />
-      <Button layoutY="1.0" mnemonicParsing="false" styleClass="boton-regresar" stylesheets="@../styles/estiloRegistro.css" text="regresar" />
+      <Button layoutX="158.0" layoutY="207.0" mnemonicParsing="false" onAction="#resgistrarUsuario" prefHeight="44.0" prefWidth="101.0" styleClass="boton-registro" text="Registrarte" textFill="#9c824a" />
    </children>
 </AnchorPane>
