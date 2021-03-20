@@ -66,19 +66,6 @@ public class FXMLLoginController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //        if(txtUsuario.getText().contentEquals(" ") || txtPassword.getText().contentEquals("")){
-//            muestraVentanaEmergente(0);
-//                    
-//          }else{
-//            if( buscaUsuario() ){
-//                    muestraVentanaPrincipal();
-//            }else{
-//                muestraVentanaEmergente(0);
-//            }
-//
-//            
-//        }
-        
     }
     
 

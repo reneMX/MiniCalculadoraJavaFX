@@ -1,0 +1,19 @@
+
+.mainFxmlClass {
+-fx-background-color : #191C39;
+-fx-text-fill: #9c824a ;
+}
+
+.BotonRegistro:hover{
+   -fx-background-color: #D1A137;
+   -fx-text-fill: #3B5998;
+   -fx-font-weight: bold;
+}
+
+
+.icono:hover{
+    -fx-padding: 10;
+    -fx-background-color: #D1A137;
+    -fx-background-radius: 10 10 10 10;
+}
+
