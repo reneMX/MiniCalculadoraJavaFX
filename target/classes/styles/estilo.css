@@ -3,17 +3,21 @@
     
 }
 
-Pane{
- -fx-background-color: #03717a;
- -fx-opacity:0.5;
-}
-
-
-
-Button{
+/*
+    Agregamos una clase, para poder modificar solo el boton de Facebook
+    , le agregamos la propiedad de color, y se intenta imitar el color
+    en hexadecimal
+*/
+.BotonFacebook{
     -fx-background-color: #3B5998;
-          
 }
 
 
+/*
+    Otra clase, para los colores y opacidad del Panel Izquierdo
+*/
+.LeftPanel{
+    -fx-background-color: #03717a;
+    -fx-opacity:0.5;
+}
 /*hover es un evento para cambiar cuando pasamos el teclado por encima*/

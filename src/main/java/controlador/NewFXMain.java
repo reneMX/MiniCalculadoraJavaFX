@@ -23,7 +23,7 @@ public class NewFXMain extends Application {
         try {	
             //Cargo la vista
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(NewFXMain.class.getResource("/vista/FXML.fxml"));
+            loader.setLocation(NewFXMain.class.getResource("/vista/FXMLLogin.fxml"));
         
             // Cargo la ventana
             Pane ventana = (Pane) loader.load();
@@ -32,7 +32,7 @@ public class NewFXMain extends Application {
             Scene scene = new Scene(ventana);
             
             // Se agrega estilo css
-            scene.getStylesheets().add("../styles/fxmllogin.css");
+            scene.getStylesheets().add("../styles/estilo.css");
             
             // Seteo la scene y la muestro  
             primaryStage.setScene(scene);

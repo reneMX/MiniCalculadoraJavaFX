@@ -35,7 +35,7 @@ public class FXMLController implements Initializable {
     @FXML
     private RadioButton rBtnSuma;
     @FXML
-    private RadioButton rBtnResta;
+    private RadioButton rBtnResta   ;
     @FXML
     private RadioButton rBtnMultiplicacion;
     @FXML
