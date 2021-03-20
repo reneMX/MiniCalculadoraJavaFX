@@ -45,5 +45,30 @@
 }
 
 .BotonRegistro:hover{
-    
+    -fx-text-fill: #005989;
+    -fx-background-color: #a0cde7;
+    -fx-font-weight:bold;
+    -fx-cursor:hand;
 }
+/*
+.calculadora:active{
+    -fx-align-self: flex-end;
+    -fx-animation-duration: 2s;
+    -fx-animation-iteration-count: infinite;
+    -fx-background-color: #F44336;
+    -fx-height: 200px;
+    -fx-margin: 0 auto 0 auto;
+    -fx-transform-origin: bottom;
+    -fx-width: 200px;
+}
+    .bounce-4 {
+        -fx-animation-name: bounce-4;
+        -fx-animation-timing-function: ease;
+    }
+    @keyframes bounce-4 {
+        0%   { -fx-transform: scale(1,1)    translateY(0); }
+        10%  { -fx-transform: scale(1.1,.9) translateY(0); }
+        30%  { -fx-transform: scale(.9,1.1) translateY(-100px); }
+        50%  { -fx-transform: scale(1,1)    translateY(0); }
+        100% { -fx-transform: scale(1,1)    translateY(0); }
+    }*/

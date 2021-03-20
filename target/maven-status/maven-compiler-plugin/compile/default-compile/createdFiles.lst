@@ -1,4 +1,5 @@
 controlador/FXMLLoginController.class
 controlador/FXMLController.class
 controlador/NewFXMain.class
+controlador/FXMLRegistroController.class
 modelo/operacionesBasicas.class
