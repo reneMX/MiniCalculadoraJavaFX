@@ -68,7 +68,7 @@ public class FXMLController implements Initializable {
     }
     
     /*
-    * Borra la informacion de los TextField
+    *   Borra la informacion de los TextField
     *   Y reinicia la eleccion de los RadioButton
     */
      @FXML
@@ -94,10 +94,9 @@ public class FXMLController implements Initializable {
     @FXML
     private void presentaNombre(ActionEvent event) {
         /* Invocamos al metodo, que llama una ventana nueva */    
-//        muestraNombre();
-        muestraVentanaEmergente(3);
+            Exception e = new Exception("Nombre. ");
+            desplegarMensaje("Acerca de..", "René Martínez M.",e, Alert.AlertType.ERROR);   
     }
-    
     
     /*
     * Valida las casillas TextField de entrada de operandos
@@ -126,6 +125,7 @@ public class FXMLController implements Initializable {
     @FXML
     private void ejecutar(ActionEvent event) {
         double result = 0;
+        Exception e ;
         if(rBtnSuma.isSelected() || rBtnResta.isSelected() || rBtnMultiplicacion.isSelected() || rBtnDivision.isSelected())
         {
                 try{    
@@ -144,65 +144,35 @@ public class FXMLController implements Initializable {
                             result= objOB.multiplar();
                         } else if (this.rBtnDivision.isSelected()) {               
                             if (numberB == 0) { // Si el denominador es 0, emitir error
-                                muestraVentanaEmergente(0);
+                                e =  new Exception("Denominador Indefinido");
+                                desplegarMensaje("Error", "El denominador no puede ser 0", e, Alert.AlertType.ERROR);   
                             } else {
                                 result= objOB.dividir();
                             }
                         }
                         // Muestro el resultado
-
                         this.tFResult.setText(String.valueOf(result));
 
                     }catch(NumberFormatException exeption){                        
-                          muestraVentanaEmergente(1);
+                          e =  new Exception("Formato incorrecto.");
+                          desplegarMensaje("Error", "Debes llenar la las casillas", e, Alert.AlertType.ERROR);   
                     }
         }else{
-                      muestraVentanaEmergente(2);
+                        e =  new Exception("Error de Llenado");
+                        desplegarMensaje("Error", "Error, Debes seleccionar almenos 1 opccion de operacion", e, Alert.AlertType.ERROR);   
         }      
     }
     
     
-    
-    
-    @FXML
-    private void muestraVentanaEmergente(int tipo){
-        Alert dialogoNombre     = new Alert(AlertType.INFORMATION); //Alerta de 
-        Alert alertaRbN         = new Alert(Alert.AlertType.ERROR);
-        Alert alertaVacio       = new Alert(Alert.AlertType.ERROR); // Alerta de error            
-        Alert alertaDenominador = new Alert(Alert.AlertType.ERROR); // Alerta de error            
-        
-        switch( tipo ){
-            case 0:
-                    alertaDenominador.setHeaderText(null);
-                    alertaDenominador.setTitle("Error");
-                    alertaDenominador.setContentText("El operando 2 no puede ser 0");
-                    alertaDenominador.showAndWait();
-            break;
-            
-            case 1:
-                    alertaVacio.setHeaderText("Cuidado Old-Man!");//Cabecera
-                    alertaVacio.setTitle("Error"); //Titulo
-                    alertaVacio.setContentText("Formato incorrecto.");//Información
-                    alertaVacio.showAndWait();/*Utilice el método showAndWait () si necesita */
-            break;
-            
-            case 2:
-                    alertaRbN.setHeaderText("Error de Llenado");
-                    alertaRbN.setTitle("Error");
-                    alertaRbN.setContentText("Error, Debes seleccionar almenos 1 opccion de operacion");
-                    alertaRbN.showAndWait();
-            break;
-            
-            case 3:
-                    dialogoNombre.setTitle("Acerca de..");
-                    dialogoNombre.setHeaderText(null);
-                    dialogoNombre.setContentText("René Martínez M.");
-                    dialogoNombre.showAndWait();
-            break;
-        }
-        
-        
+    private void desplegarMensaje(String title, String header,  Exception info, AlertType tipo){
+            Alert alerta = new Alert(tipo); // Alerta de error            
+            alerta.setHeaderText(header);//Cabecera                
+            alerta.setTitle(title); //Titulo
+            alerta.setContentText(info.getMessage());//Información
+            alerta.show();/*Utilice el método showAndWait () si necesita 
+            mantener a la ventana que se invoca hasta que la etapa modal 
+            esté oculta (cerrada).*/
     }
-   
+       
     
 }

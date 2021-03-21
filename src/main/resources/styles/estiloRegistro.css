@@ -31,4 +31,9 @@
     -fx-font-weight:bold;
 }
 
+/*
+    La Pseudo-Clase hover, reacciona cuando un usuario interactua 
+    con un elemento, aunque no necesariemente deba presionar ese elemento,
+    es decir, puede pasar el mouse o puntero por encima de el y ahi comienza la accion.
+*/
 

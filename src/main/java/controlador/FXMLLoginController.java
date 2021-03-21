@@ -4,17 +4,11 @@ import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,12 +17,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
-
 import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -56,7 +46,76 @@ public class FXMLLoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
+    
+    /*
+    *   Este metodo invoca toda la funcionalidad de ejecucion.
+    *   Aqui se contola la ejecucion de alguna excepccion posible
+    */
+    @FXML
+    private void ingresar(ActionEvent evento) {
+        try {
+            ejecucion();
+        } catch (IOException ex) {
+            desplegarMensaje("Exception", "Exception de entrada y salida de informacion", ex, Alert.AlertType.WARNING);   
+        }
+    }
 
+    /*
+    *   Este metodo basado en eventos, reacciona al presionar enter, para iniciar sesion
+    *   asu vez, llama al metodo ejecucion, donde se realiza la vlidacion de usuario, etc..
+    */
+    @FXML
+    private void enter(KeyEvent evntKey) {
+        if (evntKey.getCode().toString().equals("ENTER")) {
+            try {
+                ejecucion();
+            } catch (IOException ex) {
+                desplegarMensaje("Exception", "Exception de entrada y salida de informacion", ex, Alert.AlertType.WARNING);   
+            }
+        }
+    }
+    
+    
+    /*
+    *   Desde este metodo, se controla el curso principal de la iteraccion con el usuario
+    *
+    */
+    private void ejecucion() throws IOException {
+        Exception e;
+        if (txtUsuario.getText().contentEquals(" ") || txtPassword.getText().contentEquals("")) {
+            e = new Exception("Casillas vacias");
+            desplegarMensaje("Error de llenado", "Debes llenar todas las casillas con tu informacion", e, Alert.AlertType.ERROR);   
+        } else {
+            if (buscaUsuario()) {
+                muestraVentanaPrincipal();
+            } else {
+                e = new Exception("Error de Usuario");
+                desplegarMensaje("User not registered", "Este usuario No  esta registrado", e, Alert.AlertType.ERROR);   
+            }
+        }
+    }
+    
+    /*
+    *   Este metodo, lanza la ventana donde se ubica la min-calculadora.
+    */
+    @FXML
+    private void muestraVentanaPrincipal(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vista/FXML.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.NONE);
+            stage.setTitle("Mini-Calculadora");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Ex: " + e.getMessage());
+        }
+    }
+    
+    /*
+    *   Este metodo, lanza la ventana de registro para un usuario nuevo
+    */
     @FXML
     private void muestraResgistro(ActionEvent event){
             Node node       = (Node) event.getSource();
@@ -74,6 +133,13 @@ public class FXMLLoginController implements Initializable {
             System.out.println("Ex: " + e.getMessage());
         }
     }
+    
+    /*
+    *   Mediante el Objeto Desktop, este metodo, abre el navegador por default
+    *   y abre el enlace, en este caso Facebook
+    *   Sin embargo, su alcance es solo visual, pues no esta implenentada
+    *   una funcionalidad con alguna API Facebbok-Java
+    */
     @FXML
     private void sesionFacebook() throws URISyntaxException {
           try {
@@ -85,65 +151,24 @@ public class FXMLLoginController implements Initializable {
         }
     }
 
-    @FXML
-    private void ingresar(ActionEvent evento) {
-        try {
-            ejecucion();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void enter(KeyEvent evntKey) {
-        if (evntKey.getCode().toString().equals("ENTER")) {
-            try {
-                ejecucion();
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLLoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private void ejecucion() throws IOException {
-        if (txtUsuario.getText().contentEquals(" ") || txtPassword.getText().contentEquals("")) {
-            muestraVentanaEmergente(0);
-
-        } else {
-            if (buscaUsuario()) {
-                muestraVentanaPrincipal();
-            } else {
-                muestraVentanaEmergente(0);
-            }
-
-        }
-    }
-
-    @FXML
-    private void muestraVentanaEmergente(int tipo) {
-        Alert alertaRbN = new Alert(Alert.AlertType.ERROR);
-        alertaRbN.setHeaderText("Error de Llenado");
-        alertaRbN.setTitle("Error");
-        alertaRbN.setContentText("Error, Debes seleccionar almenos 1 opccion de operacion");
-        alertaRbN.showAndWait();
-    }
-
-    @FXML
-    private void muestraVentanaPrincipal() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vista/FXML.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.NONE);
-            stage.setTitle("Password Manager");
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException e) {
-            System.out.println("Ex: " + e.getMessage());
-        }
-    }
-
+    
     /*Capa de Datos*/
+    
+    /*
+    * Se Planteo una clase archivo, que no esta implenetada, esto con el fin
+    *   de abstraer los datos, y manejar la infomacion desde una clase
+    *   para intentar crear un bajo acoplamiento
+    */
+    
+    /*
+    *   Este metodo, hace la busqueda de un usuario, y ya que en el Login
+    *   se maneja coomo usuario y password, y aqui tenemos nombre y apellidos
+    *   el usuario se unira mediante una cadena de la sig. manera
+    *   nombre[ESPACIO]apellidos[ESPACIO]password
+    *   lo anterior, se hace asi, ya que la informacion de guardo de esa manera,
+    *   separando nombre,apellidos y password, con un espacio, y evitar problemas
+    *   con algun caracter en el password
+    */
     private Boolean buscaUsuario() throws FileNotFoundException, IOException {
         Boolean valida = false;
         //Declarar una variable BufferedReader
@@ -152,9 +177,12 @@ public class FXMLLoginController implements Initializable {
             //Crear un objeto BufferedReader al que se le pasa 
             //   un objeto FileReader con el nombre del fichero
             br = new BufferedReader(new FileReader("/Users/renemm/Desktop/Construccion/WorkSpace/copyCal/src/main/resources/archivos/usuarios.txt"));
+            
+            
             //Leer la primera línea, guardando en un String
             String texto = br.readLine();
             String busqueda = this.txtUsuario.getText() + " " + this.txtPassword.getText();
+//            String busqueda = this.txtNombre.getText() + " " + this.txtApellidos.getText() + " " + this.txtPassword.getText();
             //Repetir mientras no se llegue al final del fichero
             while (texto != null) {
                 //Hacer lo que sea con la línea leída
@@ -185,36 +213,25 @@ public class FXMLLoginController implements Initializable {
         return valida;
     }
 
-    private void insertUsuario() {
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter("/Users/renemm/Desktop/Construccion/WorkSpace/copyCal/src/main/resources/archivos/usuarios.txt");
-            pw = new PrintWriter(fichero);
-            for (int i = 0; i < 10; i++) {
-                pw.println(this.txtUsuario.getText() + " " + this.txtPassword.getText());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                // El finally se utiliza como sentencia final, para
-                // asegurarnos que se cierra el fichero.
-                if (null != fichero) {
-                    fichero.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
-        }
+    
+    /*
+    *   Este metodo, Inserta un usuario nuevo, al final del archivo
+    *   la forma de insertarlo es mediante un Buffer de escritura y un Archivo de escritura
+    *   estoy seguro de que hay formas mas  sencillas de hacer esto, sin embargo a mi me funciono
+    *   
+    */
+    
+  
+    private void desplegarMensaje(String title, String header,  Exception info, Alert.AlertType tipo){
+            Alert alerta = new Alert(tipo); // Alerta de error            
+            alerta.setHeaderText(header);//Cabecera                
+            alerta.setTitle(title); //Titulo
+            alerta.setContentText(info.getMessage());//Información
+            alerta.show();/*Utilice el método showAndWait () si necesita 
+            mantener a la ventana que se invoca hasta que la etapa modal 
+            esté oculta (cerrada).*/
     }
-
-    private void updateUsuario() {
-
-    }
-
-    private void deleteUsuario() {
-
-    }
+    
+    
 
 }//fin clase FXMLLoginController
