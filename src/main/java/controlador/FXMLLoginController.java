@@ -61,16 +61,15 @@ public class FXMLLoginController implements Initializable {
     private void muestraResgistro(ActionEvent event){
             Node node       = (Node) event.getSource();
             Stage stageP    = (Stage) node.getScene().getWindow();
-            stageP.setOpacity(0.5);//Opacamos la ventanaLogin
+//            stageP.setOpacity(0.5);//Opacamos la ventanaLogin
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vista/FXMLRegistro.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
+            FXMLLoader fxmlLoader   = new FXMLLoader(getClass().getResource("/vista/FXMLRegistro.fxml"));
+            Parent root1            = (Parent) fxmlLoader.load();
+            Stage stage             = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Formulario de Resgistro");
             stage.setScene(new Scene(root1));
             stage.show();
-            
         } catch (IOException e) {
             System.out.println("Ex: " + e.getMessage());
         }
