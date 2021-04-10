@@ -1,5 +1,5 @@
 
-package modelo;
+package modelo.app;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  *
  * @author renemm
- */
+     */
 public class Archivo {
     
     //Atributos

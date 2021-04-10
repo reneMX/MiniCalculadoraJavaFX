@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import modelo.operacionesBasicas;
+import modelo.app.operacionesBasicas;
 
 /**
  * FXML Controller class

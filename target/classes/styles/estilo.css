@@ -3,13 +3,13 @@
     
 }
 
-
+/*con este selector de clase, inciamos el color del botonfaceook*/
 .BotonFacebook{
     -fx-background-color: #3B5998;
 }
 
 /*
-    Agregamos una clase, para poder modificar solo el boton de Facebook
+    Agregamos una selector de clase, para poder modificar solo el boton de Facebook
     , le agregamos la propiedad de color, y se intenta imitar el color
     en hexadecimal
 */
@@ -20,7 +20,11 @@
     -fx-cursor:hand;
 }
 
-
+/*aqui cambiamos e color del boton ingresar
+para generar interactividad con el usuario.
+Cambismoa el color a un Dorado mas intenso
+Volvemos la letra en negritas
+volvemos el cursor en manita*/
 .botonIngresar:hover{
     -fx-text-fill: #005989;
     -fx-background-color: #a0cde7;
@@ -30,16 +34,15 @@
 
 
 /*
-    Otra clase, para los colores y opacidad del Panel Izquierdo
+    Otro selector de clase, para los colores y opacidad del Panel Izquierdo
 */
 .LeftPanel{
     -fx-background-color: #03717a;
     -fx-opacity:0.5;
 }
-/*hover es un evento para cambiar cuando pasamos el teclado por encima*/
 
 
-
+/*hover es una Pseudo-clase,  podemos cambiar cuando pasamos el mouse por encima*/
 .RecuperarAfter:hover{
     -fx-text-fill: #3c5fa1;
     -fx-cursor: hand;
