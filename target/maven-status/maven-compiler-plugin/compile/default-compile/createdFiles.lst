@@ -1,6 +1,9 @@
-modelo/Archivo.class
+modelo/app/operacionesBasicas.class
+Excepcciones/ExcepccionOperacionBasica.class
+modelo/app/Usuario.class
 controlador/FXMLLoginController.class
+modelo/app/Archivo.class
 controlador/FXMLController.class
 controlador/NewFXMain.class
+modelo/app/ObjetoFlujoDeSalida.class
 controlador/FXMLRegistroController.class
-modelo/operacionesBasicas.class

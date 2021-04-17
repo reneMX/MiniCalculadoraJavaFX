@@ -1,6 +1,9 @@
 /Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/controlador/FXMLController.java
-/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/modelo/operacionesBasicas.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/modelo/app/Usuario.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/modelo/dominio/operacionesBasicas.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/modelo/app/Archivo.java
 /Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/controlador/NewFXMain.java
-/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/controlador/FXMLRegistroController.java
-/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/controlador/FXMLLoginController.java
-/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/modelo/Archivo.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/controlador/validaciones/FXMLLoginController.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/modelo/app/ObjetoFlujoDeSalida.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/Excepcciones/ExcepccionOperacionBasica.java
+/Volumes/ElCapitanDatos/Desktop/Construccion/WorkSpace/copyCal/src/main/java/controlador/validaciones/FXMLRegistroController.java

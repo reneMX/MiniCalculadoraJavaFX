@@ -1,11 +1,17 @@
 package controlador;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import modelo.app.Archivo;
+import modelo.app.Usuario;
+import modelo.app.operacionesBasicas;
 
 /**
  *
@@ -40,8 +46,19 @@ public class NewFXMain extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException, MalformedURLException {
         launch(args);
+//        Archivo archivo = new Archivo("users");
+//        Usuario user    = new Usuario("Rene","Martinez","iasb38367w!#$%#$%^");
+//        archivo.guardarEnArchivoSerializable(user);
+//        archivo.leerArchivoSerializable();
+        
+//        for(Object usuario : usuarios){
+//            Usuario usuarioAuxiliar = (Usuario)usuario;
+//            System.out.println("" + usuarioAuxiliar.getNombre() + "  " + usuarioAuxiliar.getConstrseña());        
+//        }
+//        
+        
     }
     
 }
