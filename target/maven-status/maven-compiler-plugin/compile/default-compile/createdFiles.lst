@@ -5,5 +5,4 @@ controlador/FXMLLoginController.class
 modelo/app/Archivo.class
 controlador/FXMLController.class
 controlador/NewFXMain.class
-modelo/app/ObjetoFlujoDeSalida.class
 controlador/FXMLRegistroController.class

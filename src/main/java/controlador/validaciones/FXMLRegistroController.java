@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import modelo.app.MensajeEmergente;
 
 /**
  * FXML Controller class
@@ -37,6 +38,7 @@ public class FXMLRegistroController implements Initializable {
     private BufferedWriter bufferEscritura;
     private FileReader archivoLectura;
     private FileWriter archivoEscritura;
+    private MensajeEmergente msjEmergente;
 
     /**
      * Initializes the controller class.
@@ -56,7 +58,8 @@ public class FXMLRegistroController implements Initializable {
         try {
             if (txtNombre.getText().equals("") || txtApellidos.getText().equals("") || txtPassword.getText().equals("")) {
                 e = new Exception("Casillas vacias");
-                desplegarMensaje("Error", "LLena las casillas con tu informacion", e, Alert.AlertType.ERROR);
+                this.msjEmergente = new MensajeEmergente("Error", "LLena las casillas con tu informacion", e, Alert.AlertType.ERROR);
+                this.msjEmergente.despliegaMensaje();
             } else {
                 e = new Exception(" Registro exitoso");
                 if (validaUsuario()) {
@@ -64,14 +67,16 @@ public class FXMLRegistroController implements Initializable {
                     //Mandamos mensaje , de usuario creado
                     e = new Exception(" Registro Exitoso");
                     insertUsuario();
-                    desplegarMensaje("Exito", "Usuario Registrado con exito", e, Alert.AlertType.INFORMATION);
+                    this.msjEmergente = new MensajeEmergente("Exito", "Usuario Registrado con exito", e, Alert.AlertType.INFORMATION);
+                    this.msjEmergente.despliegaMensaje();
                     Node node = (Node) event.getSource();
                     Stage stageP = (Stage) node.getScene().getWindow();
                     stageP.close();
                 }
             }
         } catch (NumberFormatException exeption) {
-            desplegarMensaje("¡Cuidado!", "Formato incorrecto.", exeption, Alert.AlertType.INFORMATION);
+            this.msjEmergente = new MensajeEmergente("¡Cuidado!", "Formato incorrecto.", exeption, Alert.AlertType.INFORMATION);
+            this.msjEmergente.despliegaMensaje();
         }
     }
 
@@ -86,7 +91,8 @@ public class FXMLRegistroController implements Initializable {
         if (buscaUsuario()) {
             //Mandamos mensaje de usuario ya existente
             e = new Exception(" No se puede hacer registro");
-            desplegarMensaje("ERROR", "Usuario Existente", e, Alert.AlertType.ERROR);
+            this.msjEmergente = new MensajeEmergente("ERROR", "Usuario Existente", e, Alert.AlertType.ERROR);
+            this.msjEmergente.despliegaMensaje();
         } else {
             valida = true;
         }
@@ -125,16 +131,19 @@ public class FXMLRegistroController implements Initializable {
                 texto = br.readLine();
             }
         } catch (FileNotFoundException e) {
-            desplegarMensaje("¡Error!", "Fichero no encontrado", e, Alert.AlertType.ERROR);
+            this.msjEmergente = new MensajeEmergente("¡Error!", "Fichero no encontrado", e, Alert.AlertType.ERROR);
+            this.msjEmergente.despliegaMensaje();
         } catch (Exception e) {
-            desplegarMensaje("¡Error!", "Error de lectura del fichero", e, Alert.AlertType.ERROR);
+            this.msjEmergente = new MensajeEmergente("¡Error!", "Error de lectura del fichero", e, Alert.AlertType.ERROR);
+            this.msjEmergente.despliegaMensaje();
         } finally {
             try {
                 if (br != null) {
                     br.close();
                 }
             } catch (Exception e) {
-                desplegarMensaje("¡Error!", "Error al cerrar el fichero", e, Alert.AlertType.ERROR);
+                this.msjEmergente = new MensajeEmergente("¡Error!", "Error al cerrar el fichero", e, Alert.AlertType.ERROR);
+                this.msjEmergente.despliegaMensaje();
             }
         }
         return valida;
@@ -161,7 +170,8 @@ public class FXMLRegistroController implements Initializable {
             this.bufferEscritura.write("\n" + this.txtNombre.getText() + " " + this.txtApellidos.getText() + " " + this.txtPassword.getText());
             System.out.println("información agregada!");
         } catch (IOException e) {
-            desplegarMensaje("¡Error!", "Error al momento de abrir archivo", e, Alert.AlertType.INFORMATION);
+            this.msjEmergente = new MensajeEmergente("¡Error!", "Error al momento de abrir archivo", e, Alert.AlertType.INFORMATION);
+            this.msjEmergente.despliegaMensaje();
         } finally {
             try {
                 //Cierra instancias de FileWriter y BufferedWriter
@@ -172,23 +182,12 @@ public class FXMLRegistroController implements Initializable {
                     this.archivoEscritura.close();
                 }
             } catch (IOException ex) {
-                desplegarMensaje("¡Error!", "Error al momento de cerrar archivo", ex, Alert.AlertType.INFORMATION);
+                this.msjEmergente = new MensajeEmergente("¡Error!", "Error al momento de cerrar archivo", ex, Alert.AlertType.INFORMATION);
+                this.msjEmergente.despliegaMensaje();
             }
         }
 
     }
 
-    private void desplegarMensaje(String title, String header, Exception info, AlertType tipo) {
-        Alert alerta = new Alert(tipo); // Alerta de error            
-        alerta.setHeaderText(header);//Cabecera                
-        alerta.setTitle(title); //Titulo
-
-        //System.out.println(info.getClass()); 
-        alerta.setContentText(info.getMessage());//Información
-        alerta.show();/*Utilice el método showAndWait () si necesita 
-            mantener a la ventana que se invoca hasta que la etapa modal 
-            esté oculta (cerrada).*/
-
-    }
 
 }

@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.app.MensajeEmergente;
 
 /**
  * FXML Controller class
@@ -38,6 +39,8 @@ public class FXMLLoginController implements Initializable {
     private FileReader file;
     private String usuario;
     private String password;
+    
+    private MensajeEmergente msjEmergente;
 
     /**
      * Initializes the controller class.
@@ -56,7 +59,8 @@ public class FXMLLoginController implements Initializable {
         try {
             ejecucion();
         } catch (IOException ex) {
-            desplegarMensaje("Exception", "Exception de entrada y salida de informacion", ex, Alert.AlertType.WARNING);   
+            this.msjEmergente = new MensajeEmergente("Exception", "Exception de entrada y salida de informacion", ex, Alert.AlertType.WARNING);
+            this.msjEmergente.despliegaMensaje();
         }
     }
 
@@ -70,7 +74,8 @@ public class FXMLLoginController implements Initializable {
             try {
                 ejecucion();
             } catch (IOException ex) {
-                desplegarMensaje("Exception", "Exception de entrada y salida de informacion", ex, Alert.AlertType.WARNING);   
+                this.msjEmergente = new MensajeEmergente("Exception", "Exception de entrada y salida de informacion", ex, Alert.AlertType.WARNING);
+                this.msjEmergente.despliegaMensaje();
             }
         }
     }
@@ -84,13 +89,15 @@ public class FXMLLoginController implements Initializable {
         Exception e;
         if (txtUsuario.getText().contentEquals(" ") || txtPassword.getText().contentEquals("")) {
             e = new Exception("Casillas vacias");
-            desplegarMensaje("Error de llenado", "Debes llenar todas las casillas con tu informacion", e, Alert.AlertType.ERROR);   
+            this.msjEmergente = new MensajeEmergente("Error de llenado", "Debes llenar todas las casillas con tu informacion", e, Alert.AlertType.ERROR);
+            this.msjEmergente.despliegaMensaje();
         } else {
             if (buscaUsuario()) {
                 muestraVentanaPrincipal();
             } else {
                 e = new Exception("Error de Usuario");
-                desplegarMensaje("User not registered", "Este usuario No  esta registrado", e, Alert.AlertType.ERROR);   
+                this.msjEmergente = new MensajeEmergente("User not registered", "Este usuario No  esta registrado", e, Alert.AlertType.ERROR);
+                this.msjEmergente.despliegaMensaje();
             }
         }
     }
@@ -176,7 +183,7 @@ public class FXMLLoginController implements Initializable {
         try {
             //Crear un objeto BufferedReader al que se le pasa 
             //   un objeto FileReader con el nombre del fichero
-            br = new BufferedReader(new FileReader("/Users/renemm/Desktop/Construccion/WorkSpace/copyCal/src/main/resources/archivos/usuarios.txt"));
+            br = new BufferedReader(new FileReader( "/archivos/usuarios.txt")  );
             
             
             //Leer la primera línea, guardando en un String
@@ -214,24 +221,7 @@ public class FXMLLoginController implements Initializable {
     }
 
     
-    /*
-    *   Este metodo, Inserta un usuario nuevo, al final del archivo
-    *   la forma de insertarlo es mediante un Buffer de escritura y un Archivo de escritura
-    *   estoy seguro de que hay formas mas  sencillas de hacer esto, sin embargo a mi me funciono
-    *   
-    */
-    
-  
-    private void desplegarMensaje(String title, String header,  Exception info, Alert.AlertType tipo){
-            Alert alerta = new Alert(tipo); // Alerta de error            
-            alerta.setHeaderText(header);//Cabecera                
-            alerta.setTitle(title); //Titulo
-            alerta.setContentText(info.getMessage());//Información
-            alerta.show();/*Utilice el método showAndWait () si necesita 
-            mantener a la ventana que se invoca hasta que la etapa modal 
-            esté oculta (cerrada).*/
-    }
-    
+ 
     
 
 }//fin clase FXMLLoginController

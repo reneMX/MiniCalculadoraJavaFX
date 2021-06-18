@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import modelo.app.MensajeEmergente;
 import modelo.app.operacionesBasicas;
 
 /**
@@ -95,7 +96,9 @@ public class FXMLController implements Initializable {
     private void presentaNombre(ActionEvent event) {
         /* Invocamos al metodo, que llama una ventana nueva */    
             Exception e = new Exception("Nombre. ");
-            desplegarMensaje("Acerca de..", "René Martínez M.",e, Alert.AlertType.ERROR);   
+            MensajeEmergente msjEmergente = new MensajeEmergente("Acerca de..", "René Martínez M.",e, Alert.AlertType.ERROR);
+            msjEmergente.despliegaMensaje();
+            
     }
     
     /*
@@ -124,8 +127,14 @@ public class FXMLController implements Initializable {
     */
     @FXML
     private void ejecutar(ActionEvent event) {
+        Exception exDenominador         =  new Exception("Denominador Indefinido");
+        Exception exFormatoIncorrecto   =  new Exception("Formato incorrecto.");
+        Exception exErrorDeOpccion      =  new Exception("Error de Llenado");
         double result = 0;
-        Exception e ;
+        MensajeEmergente msjEmergenteDivision = new MensajeEmergente("Error", "El denominador no puede ser 0", exDenominador, Alert.AlertType.ERROR);
+        MensajeEmergente msjEmergenteFromatoIncorrecto = new MensajeEmergente("Error", "Debes llenar la las casillas", exFormatoIncorrecto, Alert.AlertType.ERROR);
+        MensajeEmergente msjEmergenteErrorDeOpccion = new MensajeEmergente("Error", "Error, Debes seleccionar almenos 1 opccion de operacion", exErrorDeOpccion, Alert.AlertType.ERROR);
+        
         if(rBtnSuma.isSelected() || rBtnResta.isSelected() || rBtnMultiplicacion.isSelected() || rBtnDivision.isSelected())
         {
                 try{    
@@ -144,8 +153,8 @@ public class FXMLController implements Initializable {
                             result= objOB.multiplar();
                         } else if (this.rBtnDivision.isSelected()) {               
                             if (numberB == 0) { // Si el denominador es 0, emitir error
-                                e =  new Exception("Denominador Indefinido");
-                                desplegarMensaje("Error", "El denominador no puede ser 0", e, Alert.AlertType.ERROR);   
+                                msjEmergenteDivision.despliegaMensaje();
+
                             } else {
                                 result= objOB.dividir();
                             }
@@ -154,25 +163,13 @@ public class FXMLController implements Initializable {
                         this.tFResult.setText(String.valueOf(result));
 
                     }catch(NumberFormatException exeption){                        
-                          e =  new Exception("Formato incorrecto.");
-                          desplegarMensaje("Error", "Debes llenar la las casillas", e, Alert.AlertType.ERROR);   
+                          msjEmergenteFromatoIncorrecto.despliegaMensaje();
                     }
         }else{
-                        e =  new Exception("Error de Llenado");
-                        desplegarMensaje("Error", "Error, Debes seleccionar almenos 1 opccion de operacion", e, Alert.AlertType.ERROR);   
+               msjEmergenteErrorDeOpccion.despliegaMensaje();
         }      
     }
     
     
-    private void desplegarMensaje(String title, String header,  Exception info, AlertType tipo){
-            Alert alerta = new Alert(tipo); // Alerta de error            
-            alerta.setHeaderText(header);//Cabecera                
-            alerta.setTitle(title); //Titulo
-            alerta.setContentText(info.getMessage());//Información
-            alerta.show();/*Utilice el método showAndWait () si necesita 
-            mantener a la ventana que se invoca hasta que la etapa modal 
-            esté oculta (cerrada).*/
-    }
-       
-    
+
 }
